@@ -373,8 +373,7 @@ counter++;</code></pre>
                     Input and output can be of all different types
                 </p>
                 
-                <pre><code class="C">// Finds number of characters in my name (with a space)
-name = "Lewis Mosby";
+                <pre><code class="C">name = "Lewis Mosby";
 length = lengthOf(name);
 print(length);</code></pre>
             
@@ -407,8 +406,7 @@ print(length);</code></pre>
 
 <p> If there are more parameters to be passed, they have to be separated by commas:</p>
            
-            <pre><code class="C">// Create a new image (title, type, width, height, depth)
-newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
+            <pre><code class="C">newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
        
 
         
@@ -427,9 +425,8 @@ newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
 }
 </code></pre>
            
-            <pre><code class="C">// Calculate value for 2D Gaussian at position (x, y)
-function Gaussian(x, y, sigma){
-    factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
+            <pre><code class="C">function Gaussian(x, y, sigma){
+    factor = exp(-1.0 * (pow(x, 2) + pow(y, 2)) / (2 * pow(sigma, 2)));
     return factor;
 }</code></pre>
        
@@ -454,9 +451,9 @@ function Gaussian(x, y, sigma){
 &gt;&gt;&gt; m = newArray('first', 'second', 'third', 'fourth');
 &gt;&gt;&gt; n = Array.concat(l, m);
 &gt;&gt;&gt; Array.print(n);
-1, 3, 9, 4, 884328881, 'first', 'second', 'third', 'fourth'
+1, 3, 9, 4, 884328881, first, second, third, fourth
 &gt;&gt;&gt; print(n[6]);
-'second'</code></pre>
+second</code></pre>
             
             <p>An array is a ordered sequence of items (between [...]) each with their own index.</p>
 		
@@ -479,6 +476,8 @@ function list(name, a) {
   for (i = 0; i < a.length; i++)
       print("   " + a[i]);
 }
+
+/* Number arrays */
 
 a1 = newArray(10, 5, 15, 2, 1.23456);
 a2 = Array.copy(a1);
@@ -537,7 +536,9 @@ Fill
                 <br/>
             </h2>
             
-                <pre><code class="java">a1 = newArray(10, 5, 15, 2, 1.23456);
+                <pre><code class="java">/* Array statistics */
+
+a1 = newArray(10, 5, 15, 2, 1.23456);
 Array.getStatistics(a1, min, max, mean, std);
 print("Stats:");
 print("   min: " + min);
@@ -566,7 +567,9 @@ Stats:
                 <br/>
             </h2>
             
-                <pre><code class="java">a1 = newArray("one", "two", "three", "four");
+                <pre><code class="java">/* String arrays */
+
+a1 = newArray("one", "two", "three", "four");
 a2 = Array.copy(a1);
 list("Copy", a2);
 ...
