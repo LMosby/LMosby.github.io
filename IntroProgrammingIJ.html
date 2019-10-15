@@ -29,22 +29,20 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="slides">
     <section data-menu-title="Title">
 <h2>Introduction to Programming in Fiji</h2>
-<h4>Erick Martins Ratamero<br>Research Fellow</h4>
+<h4>Lewis Mosby<br>PhD Student</h4>
 </section>
 
 
     <section data-menu-title="Introduction" data-state="intro0">
-        <h2>Hello</h2>
-        
-            <br/>
-        
-            <br/>
-        
-            <br/>
-        
-        
-            
-            <a href="https://twitter.com/erickratamero" target="_blank">@erickratamero</a>
+        <h2>
+		<b>Introductions<\b>
+	</h2>
+
+	<ul>
+	<li>Lewis Mosby (me, taking this session)
+        <li>Daniel Moore (taking the session: )
+`	<li>Sam Garforth (taking the session: )
+        </ul>
         
     </section>
     
@@ -57,7 +55,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         
    
     <ul>
-        <li>Philo van Kemenade (<a href="twitter.com/phivk">@phivk</a>) from whom I "stole" the general structure of the presentation and some of the images </li>
+	<li>Erick Martins Ratamero (<a href="https://twitter.com/erickratamero" target="_blank">@erickratamero</a>) who gave me the majority of these slides
+        <li>Philo van Kemenade (<a href="twitter.com/phivk">@phivk</a>) from whom Erick "stole" the general structure of the presentation and some of the images </li>
         <li>(original at <a href="https://slides.com/phivk/intro2python">https://slides.com/phivk/intro2python</a>)</li>
         <li>Some material also from <a href="https://imagej.net/Introduction_into_Macro_Programming">https://imagej.net/Introduction_into_Macro_Programming</a></li>
         </ul>
@@ -137,9 +136,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section data-state="bb">
         <h2>Declaring variables in Fiji</h2>
         
-            <pre><code>name = "Erick";
+            <pre><code>name = "Lewis";
 gender = "male";
-height = 1.73; </code></pre>
+height = 1.68; </code></pre>
         
     </section>
 
@@ -182,14 +181,43 @@ height = 1.73; </code></pre>
 
 
 
+
+   <section data-state="pp">
+        <h2>Comments</h2>
+        
+            <p>When you read your code again in six months from now, you want to understand what your code does, and why. For this, you can add comments, i.e. text which is ignored by ImageJ when it executes the macro.</p>
+          
+            <pre><code class="C">// Define the radius of the circle to be drawn
+r = 15;</code></pre>
+           
+<p>You can also have multi-line comments enclosed in /* ... */ blocks:</p>
+
+            <pre><code class="C">/*
+ It turned out in practice that 0.5 is a good choice for alpha, because
+ it leads to fewer artifacts than anything larger, and it is large enough
+ to guarantee a quick convergence.
+*/
+alpha = 0.5;</code></pre>
+       
+
+        
+    </section>
+
+
+
+
+
+
             <section data-state="bb">
         <h2>Name vs value of a variable</h2>
         
             <p>A common pitfall is to include the name of a variable in a string. </p>
           
             <pre><code data-noescape>title = "Macro";
-//BAD - literally prints "title"
-//write("The name: title");     
+
+// BAD - literally prints "title"
+// write("The name: title");
+   
 // GOOD - properly uses the title variable value
 write("The name: " + title); </code></pre>
 
@@ -197,19 +225,26 @@ write("The name: " + title); </code></pre>
 <p>The same principle applies when using variables which reflect parameters passed to a run() method, e.g. </p>
           
             <pre><code data-noescape>specifiedRadius = 3;
-//BAD - will literally pass "specifiedRadius"
-//run("Median...", "radius=specifiedRadius");  
+
+// BAD - will literally pass "specifiedRadius"
+// run("Median...", "radius=specifiedRadius");
+ 
 // GOOD - will correctly pass the radius variable value   
 run("Median...", "radius=" + specifiedRadius); </code></pre>
 
 <p>Note that whitespaces are not automatically added! </p>
             <pre><code data-noescape>specifiedMethod = "Li";
-//BAD - does NOT work because the macro runs as "method=Liwhite"
-//run("Auto Threshold", "method=" + userDefinedAutoThreshold + "white");
-//GOOD - will correctly pass argument   
+
+// BAD - does NOT work because the macro runs as "method=Liwhite"
+// run("Auto Threshold", "method=" + userDefinedAutoThreshold + "white");
+
+// GOOD - will correctly pass argument   
 run("Auto Threshold", "method=" + userDefinedAutoThreshold + " white");</code></pre>
             
     </section>
+
+
+
 
 
     <section data-state="bb">
@@ -223,7 +258,7 @@ run("Auto Threshold", "method=" + userDefinedAutoThreshold + " white");</code></
 <p>First, <i>amount * 2</i> is evaluated. The result is then assigned back to the variable <i>amount</i>, effectively doubling it.</p>
           
 <p>A very important operation is to increment a variable's value by one; so important that there is a short form for it</p>
-            <pre><code>//both lines do the same thing
+            <pre><code>// Both these lines do the same thing
 counter = counter + 1;
 counter++;</code></pre>
             
@@ -338,9 +373,10 @@ counter++;</code></pre>
                     Input and output can be of all different types
                 </p>
                 
-                <pre><code class="C">name = "Erick Ratamero";
-length = lengthOf(name);
-print(length);</code></pre>
+                <pre><code class="C">// Finds number of characters in my name (with a space)
+		name = "Lewis Mosby";
+		length = lengthOf(name);
+		print(length);</code></pre>
             
             <br/>
         </section>
@@ -371,7 +407,8 @@ print(length);</code></pre>
 
 <p> If there are more parameters to be passed, they have to be separated by commas:</p>
            
-            <pre><code class="C">newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
+            <pre><code class="C">// Create a new image (title, type, width, height, depth)
+		newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
        
 
         
@@ -390,8 +427,9 @@ return statement
     }
 </code></pre>
            
-            <pre><code class="C">function calculate(x, y, sigma){
-    factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
+            <pre><code class="C">// Calculate value for 2D Gaussian at position (x, y)
+	function Gaussian(x, y, sigma){
+    	factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
     
     return factor;
 }</code></pre>
@@ -399,35 +437,6 @@ return statement
 
         
     </section>
-
-
-
-   <section data-state="pp">
-        <h2>Comments</h2>
-        
-            <p>When you read your code again in six months from now, you want to understand what your code does, and why. For this, you can add comments, i.e. text which is ignored by ImageJ when it executes the macro.</p>
-          
-            <pre><code class="C">// This variable contains the radius of the circle to be drawn
-r = 15;</code></pre>
-           
-<p>You can also have multi-line comments enclosed in /* ... */ blocks:</p>
-
-            <pre><code class="C">/*
- It turned out in practice that 0.5 is a good choice for alpha, because
- it leads to fewer artifacts than anything larger, and it is large enough
- to guarantee a quick convergence.
-*/
-alpha = 0.5;</code></pre>
-       
-
-        
-    </section>
-
-
-
-
-
-
 
     
     
@@ -442,14 +451,16 @@ alpha = 0.5;</code></pre>
                     We can store multiple values in an <b><i><font color="#e06666">array</font>:</i></b>
                 </p>
                     
-                <pre><code class="python">&gt;&gt;&gt; l = newArray(1,3,9,4,884328881);
-&gt;&gt;&gt; n = newArray('first', 'second', 'third', 'fourth');
-&gt;&gt;&gt; m = Array.concat(l,n);
+                <pre><code class="python">&gt;&gt;&gt; l = newArray(1, 3, 9, 4, 884328881);
+&gt;&gt;&gt; m = newArray('first', 'second', 'third', 'fourth');
+&gt;&gt;&gt; n = Array.concat(l, m);
+&gt;&gt;&gt;
+&gt;&gt;&gt; // Add the two arrays together
 &gt;&gt;&gt; print(m[6]);
 'second'</code></pre>
             
             <br/>An array is a ordered sequence of items (between [...]) each with their own index.
-            <br/>
+            <br/>Remember that arrays in Fiji are 0 indexed!
         </section>
 
 
@@ -463,31 +474,60 @@ alpha = 0.5;</code></pre>
             </h2>
             
                 <pre><code class="java">
-// This macro demonstrates how to use the Array.* functions.
+	// This macro demonstrates how to use the Array.* functions
 
-  a1 = newArray(10, 5, 15, 2, 1.23456);
-  a2 = Array.copy(a1);
-  a2 = Array.trim(a1, 2);
-  Array.sort(a1);
-  Array.getStatistics(a1, min, max, mean, std);
-  print("stats");
-  print("   min: "+min);
-  print("   max: "+max);
-  print("   mean: "+mean);
-  print("   std dev: "+std);
-  Array.fill(a1, -1);
+	// Define function to print array name and values
+	function list(name, a) {
+	  print(name);
+	  for (i = 0; i < a.length; i++)
+	      print("   " + a[i]);
+	}
 
-  a1 = newArray("one", "two", "three", "four");
-  print("");
-  a2 = Array.copy(a1);
-  a2 = Array.trim(a1, 2);
-  Array.sort(a1);
+	// Define array
+	a1 = newArray(10, 5, 15, 2, 1.23456);
 
-  function list(name, a) {
-      print(name);
-      for (i=0; i< a.length; i++)
-          print("   "+a[i]);
-  }
+	// Copy previously made array and print
+	a2 = Array.copy(a1);
+	list("Copy", a2);
+
+	// Trim (store first n elements) previously made array and print
+	a2 = Array.trim(a1, 2);
+	list("Trim", a2);
+
+	// Sort previously made array (overwrites) and print
+	a2 = Array.sort(a1);
+	list("Sort", a1);
+	// list("Sort", a2); // Can check, but overwrites what is stored in a1 always
+
+	// Trim sorted array and print
+	a2 = Array.trim(Array.sort(a1), 3);
+	list("Sort-Trim", a2);
+
+	// Get information about contents of array
+	Array.getStatistics(a1, min, max, mean, std);
+	print("Stats:");
+	print("   min: " + min);
+	print("   max: " + max);
+	print("   mean: " + mean);
+	print("   std dev: " + std);
+
+	// Fill previously made array with new values (constant) and print
+	Array.fill(a1, -1);
+	list("Fill", a1);
+
+	print(""); // Leave gap before printing new array type
+
+	// Define string array and print
+	a1 = newArray("one", "two", "three", "four");
+
+	// Repeat same operations as before
+	a2 = Array.copy(a1);
+	list("Copy", a2);
+	a2 = Array.trim(a1, 2);
+	list("Trim", a2);
+	Array.sort(a1);
+	list("Sort", a1);
+
                 </code></pre>
            
             
@@ -518,10 +558,10 @@ alpha = 0.5;</code></pre>
 }</code></pre>
                 <pre><code class="C">age = 17;
 if(age &lt; 18){
-    print("no drinks for you");
+    print("No drinks for you!");
 }
 ... 
-no drinks for you</code></pre>
+No drinks for you!</code></pre>
                     
         </section>
 
@@ -536,17 +576,19 @@ no drinks for you</code></pre>
                 
                 <pre><code class="C">if(condition){
     action
-}else{
+}
+else{
     a different action
 }</code></pre>
                 <pre><code class="C">age = 19;
 if(age &lt; 18){
-    print("no drinks for you");
-}else{
-    print("go ahead!")
+    print("No drinks for you!");
+}
+else{
+    print("Go ahead!")
 }
 ... 
-go ahead!</code></pre>
+Go ahead!</code></pre>
                     
         </section>
 
@@ -559,43 +601,34 @@ go ahead!</code></pre>
                 
                 <pre><code class="C">
 if(age &lt; 18){
-    print("no drinks for you");
-    if(age &lt; 16){
-        print("you are a child!");
-    }else{
-        print("you are a teen!");
+    print("No drinks for you!");
+    if(age &lt; 13){
+        print("You are a child!");
     }
-}else{
-    print("go ahead!")
+	else{
+        print("You are a teen!");
+    }
+}
+else{
+    print("Go ahead!")
 }
 ... 
 age = 19;
-go ahead!
+Go ahead!
 ...
 age = 17;
-no drinks for you
-you are a teen!
+No drinks for you!
+You are a teen!
 ...
 age = 9;
-no drinks for you
-you are a child!
+No drinks for you!
+You are a child!
 </code></pre>
 
 <p>Note the brackets!
                 </p>
                     
         </section>
-
-
-
-
-
-
-        <!-- INSERT EXAMPLE 1 HERE -->
-
-
-
-
 
 
 
@@ -614,6 +647,78 @@ you are a child!
         <p>22 should print nothing.</p>
         
     </section>
+
+
+
+
+
+
+
+<section data-state="pp">
+        
+        
+        <h2>
+                Example 1 Simple Solution
+        </h2>
+
+<pre><code class="C">
+number = 1610;
+
+if (number > 1500 && number < 2700){
+	print("Is between 1500 and 2700");
+}
+if (number % 5 == 0){
+	print("Is a multiple of 5");
+}
+if (number % 7 == 0){
+	print("Is divisible by 7");
+}
+</code></pre>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+<section data-state="pp">
+        
+        
+        <h2>
+                Example 1 Thorough Solution
+        </h2>
+
+<pre><code class="C">
+// Ask for input number
+defaultValue = 20;
+input = getNumber("Enter your age", defaultValue);
+
+// Print if default value was used
+if (input == defaultValue) {
+	print("Invalid input, using default value: " + defaultValue);
+}
+
+// Check if number is in range
+if(input > 1500 && input < 2700) {
+	print("Is between 1500 & 2700");
+}
+
+// Check if number is divisible by 5 and/or 7
+if(input % 5 == 0) {
+	print("Is a multiple of 5");
+}
+if(input % 7 == 0) {
+	print("Is divisible by 7");
+}
+</code></pre>
+        
+    </section>
+
+
 
 
 
@@ -639,7 +744,7 @@ you are a child!
   <p>for example:
         </p>
         <pre><code class="C">ages = newArray(18, 21, 16, 12);
-for(i=0; i< lengthOf(ages); i++){
+for(i = 0; i < lengthOf(ages); i++){
     print(ages[i]);
 }
 ....
@@ -659,9 +764,9 @@ for(i=0; i< lengthOf(ages); i++){
         <p>Sometimes it is necessary to have a loop inside another loop:
         </p>
         <pre><code class="C">ages = newArray(18, 21, 16, 12);
-for(i=0; i< lengthOf(ages); i++){
-    for (j=0; j&lt; i; j++){
-    print(j);
+for(i = 0; i < lengthOf(ages); i++){
+    for (j=0; j&lt; ages[i]; j++){
+    	print(j);
     }
 }
 ....
@@ -695,6 +800,11 @@ for(i=0; i< lengthOf(ages); i++){
 
 
 
+
+
+
+
+
 <section data-state="pp">
         
         
@@ -709,6 +819,73 @@ for(i=0; i< lengthOf(ages); i++){
 
 
 
+
+
+
+
+
+
+
+
+<section data-state="pp">
+        
+        
+        <h2>
+                Example 2 Simple Solution
+        </h2>
+
+<pre><code class="C">
+for (i=0;i<nSlices;i++){
+	print(i);
+}
+</code></pre>
+        
+    </section>
+
+
+
+
+
+
+<section data-state="pp">
+        
+        
+        <h2>
+                Example 2 Thorough Solution
+        </h2>
+
+<pre><code class="C">
+// Open input window to enter input file
+#@ File (label = "Input directory", style = "file") input
+open(input);
+
+// Or: open('/media/phungd/M-USB-Y/Teaching/2019_CH922/Tests/Session 1/blobs.tif');
+
+// Count number of slices in image
+for(i = 1; i <= nSlices; i++) {
+	print("Slice: " + i);
+}
+print("Image contains: " + nSlices + " slices");
+</code></pre>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        <section data-state="pp">
         <h2>Recording a macro</h2>
         
@@ -717,6 +894,7 @@ for(i=0; i< lengthOf(ages); i++){
         <img src="img-ia/macros.png">
         
     </section>
+
 
 
 
@@ -748,6 +926,114 @@ run("Merge Channels...",
         <p>Make sure it works no matter what the name of the image is or how many timepoints it has!</p>
         
     </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section data-state="pp">
+        
+        
+        <h2>
+                Example 3 Simple Solution
+        </h2>
+
+<pre><code class="C">
+Stack.getDimensions(width, height, channels, slices, frames);
+name = File.nameWithoutExtension;
+dir = File.directory;
+if (frames > 1){
+	for (i=1;i<=frames; i++){
+		Stack.setFrame(i);
+		if(channels > 1 || slices > 1){
+			run("Duplicate...", "duplicate frames="+(i));
+		}else{
+			run("Duplicate...", " ");
+		}
+		
+		saveAs("tif", dir+"/"+name+"_"+(i)+".tif");
+		close();
+	}
+}
+</code></pre>
+        
+    </section>
+
+
+
+
+
+
+<section data-state="pp">
+        
+        
+        <h2>
+                Example 3 Thorough Solution
+        </h2>
+
+<pre><code class="C">
+// Open input window to enter input file
+#@ File (label = "Input directory", style = "file") input
+open(input);
+
+// Or: open('/media/phungd/M-USB-Y/Teaching/2019_CH922/Tests/Session 1/timelapse.tif');
+
+// Get information about stack of images
+Stack.getDimensions(width, height, channels, slices, frames);
+name = File.nameWithoutExtension;
+dir = File.directory;
+
+// Check if stack contains multiple frames (else our job is done)
+if(frames > 1) {
+
+	// Loop over all frames
+	for(i = 1; i <= frames; i++) {
+
+		// Select ith frame
+		Stack.setFrame(i);
+
+		// If stack contains multiple channels or slices, duplicate all relevant images
+		if(channels > 1 || slices > 1) {
+			run("Duplicate...", "duplicate frames=" + i);
+		}
+		// Else just duplicate frame
+		else{
+			run("Duplicate...", " ");
+		}
+
+		// Same duplicate as new image
+		saveAs("tif", dir + "/" + name + "_" + i + ".tif");
+
+		// Remember to close image
+		close();
+	}
+}
+
+// Remember to close stack
+close();
+</code></pre>
+        
+    </section>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -806,7 +1092,6 @@ transitions: false,
 numbers: true,
 openButton: false,
 titleSelector: 'span.menu-title'
-
 }
 });
 </script>
