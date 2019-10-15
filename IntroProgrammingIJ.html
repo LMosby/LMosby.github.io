@@ -812,7 +812,7 @@ for(i=0; i< lengthOf(ages); i++){
                 Example 2
         </h2>
 
-        <p> Create a macro that goes through each slice on an image and print the slice number. </p>
+        <p>Create a macro that goes through each slice on an image and print the slice number.</p>
         <p>Apply it to <a href="material/blobs.tif">blobs.tif</a> and <a href="material/head.tif">head.tif</a>.</p>
         
     </section>
@@ -834,8 +834,7 @@ for(i=0; i< lengthOf(ages); i++){
                 Example 2 Simple Solution
         </h2>
 
-<pre><code class="C">
-for (i=0;i<nSlices;i++){
+<pre><code class="C">for (i = 0; i < nSlices; i++){
 	print(i);
 }
 </code></pre>
@@ -854,8 +853,7 @@ for (i=0;i<nSlices;i++){
                 Example 2 Thorough Solution
         </h2>
 
-<pre><code class="C">
-// Open input window to enter input file
+<pre><code class="C">// Open input window to enter input file
 #@ File (label = "Input directory", style = "file") input
 open(input);
 
