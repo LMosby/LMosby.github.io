@@ -39,9 +39,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</h2>
 
 	<ul>
-	<li>Lewis Mosby (me, taking this session)
-        <li>Daniel Moore (taking the session: )
-`	<li>Sam Garforth (taking the session: )
+	<li>Lewis Mosby (me)
+	<li>Sam Garforth
+        <li>Daniel Moore
         </ul>
         
     </section>
@@ -57,7 +57,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <ul>
 	<li>Erick Martins Ratamero (<a href="https://twitter.com/erickratamero" target="_blank">@erickratamero</a>) who gave me the majority of these slides
         <li>Philo van Kemenade (<a href="twitter.com/phivk">@phivk</a>) from whom Erick "stole" the general structure of the presentation and some of the images </li>
-        <li>(original at <a href="https://slides.com/phivk/intro2python">https://slides.com/phivk/intro2python</a>)</li>
+        <li>(Original at <a href="https://slides.com/phivk/intro2python">https://slides.com/phivk/intro2python</a>)</li>
         <li>Some material also from <a href="https://imagej.net/Introduction_into_Macro_Programming">https://imagej.net/Introduction_into_Macro_Programming</a></li>
         </ul>
     
@@ -76,7 +76,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         
             <br/>
         
-            <a href="http://tiny.cc/introfiji" target="_blank">tiny.cc/introfiji</a>
+            <a href="http://tiny.cc/introfiji2" target="_blank">tiny.cc/introfiji2</a>
             <br/>
        
     </section>
@@ -374,9 +374,9 @@ counter++;</code></pre>
                 </p>
                 
                 <pre><code class="C">// Finds number of characters in my name (with a space)
-		name = "Lewis Mosby";
-		length = lengthOf(name);
-		print(length);</code></pre>
+name = "Lewis Mosby";
+length = lengthOf(name);
+print(length);</code></pre>
             
             <br/>
         </section>
@@ -408,7 +408,7 @@ counter++;</code></pre>
 <p> If there are more parameters to be passed, they have to be separated by commas:</p>
            
             <pre><code class="C">// Create a new image (title, type, width, height, depth)
-		newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
+newImage("My pretty new image", "8-bit black", 640, 480, 1);</code></pre>
        
 
         
@@ -422,15 +422,14 @@ counter++;</code></pre>
             </p>
           
             <pre><code class="C">function function_name(argument(s)){
-actions with argument(s)
-return statement
-    }
+    actions with argument(s)
+    return statement
+}
 </code></pre>
            
             <pre><code class="C">// Calculate value for 2D Gaussian at position (x, y)
-	function Gaussian(x, y, sigma){
-    	factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
-    
+function Gaussian(x, y, sigma){
+    factor = exp(-1.0*(pow(x,2)+pow(y,2))/(2*pow(sigma,2)));
     return factor;
 }</code></pre>
        
@@ -454,13 +453,14 @@ return statement
                 <pre><code class="python">&gt;&gt;&gt; l = newArray(1, 3, 9, 4, 884328881);
 &gt;&gt;&gt; m = newArray('first', 'second', 'third', 'fourth');
 &gt;&gt;&gt; n = Array.concat(l, m);
-&gt;&gt;&gt;
-&gt;&gt;&gt; // Add the two arrays together
-&gt;&gt;&gt; print(m[6]);
+&gt;&gt;&gt; Array.print(n);
+1, 3, 9, 4, 884328881, 'first', 'second', 'third', 'fourth'
+&gt;&gt;&gt; print(n[6]);
 'second'</code></pre>
             
-            <br/>An array is a ordered sequence of items (between [...]) each with their own index.
-            <br/>Remember that arrays in Fiji are 0 indexed!
+            <p>An array is a ordered sequence of items (between [...]) each with their own index.</p>
+		
+            <p>Remember that arrays in Fiji are 0 indexed!</p>
         </section>
 
 
@@ -473,62 +473,126 @@ return statement
                 <br/>
             </h2>
             
-                <pre><code class="java">
-	// This macro demonstrates how to use the Array.* functions
+                <pre><code class="java">// Define function to print array name and values
+function list(name, a) {
+  print(name);
+  for (i = 0; i < a.length; i++)
+      print("   " + a[i]);
+}
 
-	// Define function to print array name and values
-	function list(name, a) {
-	  print(name);
-	  for (i = 0; i < a.length; i++)
-	      print("   " + a[i]);
-	}
+a1 = newArray(10, 5, 15, 2, 1.23456);
+a2 = Array.copy(a1);
+list("Copy", a2);
+...
+Copy
+   10
+   5
+   15
+   2
+   1.23456
+...
 
-	// Define array
-	a1 = newArray(10, 5, 15, 2, 1.23456);
+a2 = Array.trim(a1, 2);
+list("Trim", a2);
+...
+Trim
+   10
+   5
+...
 
-	// Copy previously made array and print
-	a2 = Array.copy(a1);
-	list("Copy", a2);
+a2 = Array.sort(a1);
+list("Sort", a1);
+// list("Sort", a2); // Can check, but overwrites what is stored in a1 always
+...
+Sort
+   1.23456
+   2
+   5
+   10
+   15
+...
 
-	// Trim (store first n elements) previously made array and print
-	a2 = Array.trim(a1, 2);
-	list("Trim", a2);
+Array.fill(a1, -1);
+list("Fill", a1);
+...
+Fill
+   -1
+   -1
+   -1
+   -1
+   -1</code></pre>
+           
+            
+        </section>
 
-	// Sort previously made array (overwrites) and print
-	a2 = Array.sort(a1);
-	list("Sort", a1);
-	// list("Sort", a2); // Can check, but overwrites what is stored in a1 always
+		
+		
+		
+		
+		
+		
+		
+		        <section data-state="bb">
+            <h2>Some more array examples
+                <br/>
+            </h2>
+            
+                <pre><code class="java">a1 = newArray(10, 5, 15, 2, 1.23456);
+Array.getStatistics(a1, min, max, mean, std);
+print("Stats:");
+print("   min: " + min);
+print("   max: " + max);
+print("   mean: " + mean);
+print("   std dev: " + std);
+...
+Stats:
+   min: 1.23456
+   max: 15
+   mean: 6.6469
+   std dev: 5.8012</code></pre>
+           
+            
+        </section>
+		
+		
+		
+		
+		
+		
+		
+		
+		<section data-state="bb">
+            <h2>Even more array examples
+                <br/>
+            </h2>
+            
+                <pre><code class="java">a1 = newArray("one", "two", "three", "four");
+a2 = Array.copy(a1);
+list("Copy", a2);
+...
+Copy
+   one
+   two
+   three
+   four
+...
 
-	// Trim sorted array and print
-	a2 = Array.trim(Array.sort(a1), 3);
-	list("Sort-Trim", a2);
+a2 = Array.trim(a1, 2);
+list("Trim", a2);
+...
+Trim
+   one
+   two
+...
 
-	// Get information about contents of array
-	Array.getStatistics(a1, min, max, mean, std);
-	print("Stats:");
-	print("   min: " + min);
-	print("   max: " + max);
-	print("   mean: " + mean);
-	print("   std dev: " + std);
-
-	// Fill previously made array with new values (constant) and print
-	Array.fill(a1, -1);
-	list("Fill", a1);
-
-	print(""); // Leave gap before printing new array type
-
-	// Define string array and print
-	a1 = newArray("one", "two", "three", "four");
-
-	// Repeat same operations as before
-	a2 = Array.copy(a1);
-	list("Copy", a2);
-	a2 = Array.trim(a1, 2);
-	list("Trim", a2);
-	Array.sort(a1);
-	list("Sort", a1);
-
-                </code></pre>
+Array.sort(a1);
+list("Sort", a1);
+...
+Sort
+   four
+   one
+   three
+   two</code></pre>
            
             
         </section>
@@ -599,13 +663,12 @@ Go ahead!</code></pre>
                 <p>You can have as many ifs inside ifs inside ifs as you want. Also ifs inside elses, and elses inside ifs...
                 </p>
                 
-                <pre><code class="C">
-if(age &lt; 18){
+                <pre><code class="C">if(age &lt; 18){
     print("No drinks for you!");
     if(age &lt; 13){
         print("You are a child!");
     }
-	else{
+    else{
         print("You are a teen!");
     }
 }
@@ -661,19 +724,17 @@ You are a child!
                 Example 1 Simple Solution
         </h2>
 
-<pre><code class="C">
-number = 1610;
+<pre><code class="C">number = 1610;
 
-if (number > 1500 && number < 2700){
-	print("Is between 1500 and 2700");
+if(number > 1500 && number < 2700){
+    print("Is between 1500 and 2700");
 }
-if (number % 5 == 0){
-	print("Is a multiple of 5");
+if(number % 5 == 0){
+    print("Is a multiple of 5");
 }
-if (number % 7 == 0){
-	print("Is divisible by 7");
-}
-</code></pre>
+if(number % 7 == 0){
+    print("Is divisible by 7");
+}</code></pre>
         
     </section>
 
@@ -692,29 +753,27 @@ if (number % 7 == 0){
                 Example 1 Thorough Solution
         </h2>
 
-<pre><code class="C">
-// Ask for input number
+<pre><code class="C">// Ask for input number
 defaultValue = 20;
 input = getNumber("Enter your age", defaultValue);
 
 // Print if default value was used
-if (input == defaultValue) {
-	print("Invalid input, using default value: " + defaultValue);
+if(input == defaultValue){
+    print("Invalid input, using default value: " + defaultValue);
 }
 
 // Check if number is in range
-if(input > 1500 && input < 2700) {
-	print("Is between 1500 & 2700");
+if(input > 1500 && input < 2700){
+    print("Is between 1500 & 2700");
 }
 
 // Check if number is divisible by 5 and/or 7
-if(input % 5 == 0) {
-	print("Is a multiple of 5");
+if(input % 5 == 0){
+    print("Is a multiple of 5");
 }
-if(input % 7 == 0) {
-	print("Is divisible by 7");
-}
-</code></pre>
+if(input % 7 == 0){
+    print("Is divisible by 7");
+}</code></pre>
         
     </section>
 
@@ -738,9 +797,9 @@ if(input % 7 == 0) {
                 
                 </p>
                 
-                <pre><code class="C">for (start; condition; increment){
-          do something
-  }</code></pre>
+                <pre><code class="C">for(start; condition; increment){
+    do something
+}</code></pre>
   <p>for example:
         </p>
         <pre><code class="C">ages = newArray(18, 21, 16, 12);
@@ -765,7 +824,7 @@ for(i = 0; i < lengthOf(ages); i++){
         </p>
         <pre><code class="C">ages = newArray(18, 21, 16, 12);
 for(i = 0; i < lengthOf(ages); i++){
-    for (j=0; j&lt; ages[i]; j++){
+    for(j = 0; j &lt; ages[i]; j++){
     	print(j);
     }
 }
@@ -834,8 +893,8 @@ for(i=0; i< lengthOf(ages); i++){
                 Example 2 Simple Solution
         </h2>
 
-<pre><code class="C">for (i = 0; i < nSlices; i++){
-	print(i);
+<pre><code class="C">for(i = 0; i < nSlices; i++){
+    print(i);
 }
 </code></pre>
         
@@ -860,8 +919,8 @@ open(input);
 // Or: open('/media/phungd/M-USB-Y/Teaching/2019_CH922/Tests/Session 1/blobs.tif');
 
 // Count number of slices in image
-for(i = 1; i <= nSlices; i++) {
-	print("Slice: " + i);
+for(i = 1; i <= nSlices; i++){
+    print("Slice: " + i);
 }
 print("Image contains: " + nSlices + " slices");
 </code></pre>
@@ -945,24 +1004,23 @@ run("Merge Channels...",
                 Example 3 Simple Solution
         </h2>
 
-<pre><code class="C">
-Stack.getDimensions(width, height, channels, slices, frames);
+<pre><code class="C">Stack.getDimensions(width, height, channels, slices, frames);
 name = File.nameWithoutExtension;
 dir = File.directory;
-if (frames > 1){
-	for (i=1;i<=frames; i++){
-		Stack.setFrame(i);
-		if(channels > 1 || slices > 1){
-			run("Duplicate...", "duplicate frames="+(i));
-		}else{
-			run("Duplicate...", " ");
-		}
-		
-		saveAs("tif", dir+"/"+name+"_"+(i)+".tif");
-		close();
+if(frames > 1){
+    for(i=1;i<=frames; i++){
+        Stack.setFrame(i);
+        if(channels > 1 || slices > 1){
+            run("Duplicate...", "duplicate frames=" + i);
 	}
-}
-</code></pre>
+	else{
+	    run("Duplicate...", " ");
+	}
+		
+	saveAs("tif", dir + "/" + name + "_" + i + ".tif");
+	close();
+    }
+}</code></pre>
         
     </section>
 
@@ -978,8 +1036,7 @@ if (frames > 1){
                 Example 3 Thorough Solution
         </h2>
 
-<pre><code class="C">
-// Open input window to enter input file
+<pre><code class="C">// Open input window to enter input file
 #@ File (label = "Input directory", style = "file") input
 open(input);
 
@@ -991,29 +1048,29 @@ name = File.nameWithoutExtension;
 dir = File.directory;
 
 // Check if stack contains multiple frames (else our job is done)
-if(frames > 1) {
+if(frames > 1){
 
-	// Loop over all frames
-	for(i = 1; i <= frames; i++) {
+    // Loop over all frames
+    for(i = 1; i <= frames; i++){
 
-		// Select ith frame
-		Stack.setFrame(i);
+        // Select ith frame
+        Stack.setFrame(i);
 
-		// If stack contains multiple channels or slices, duplicate all relevant images
-		if(channels > 1 || slices > 1) {
-			run("Duplicate...", "duplicate frames=" + i);
-		}
-		// Else just duplicate frame
-		else{
-			run("Duplicate...", " ");
-		}
+        // If stack contains multiple channels or slices, duplicate all relevant images
+        if(channels > 1 || slices > 1){
+	    run("Duplicate...", "duplicate frames=" + i);
+        }
+        // Else just duplicate frame
+        else{
+	    run("Duplicate...", " ");
+        }
 
-		// Same duplicate as new image
-		saveAs("tif", dir + "/" + name + "_" + i + ".tif");
+        // Same duplicate as new image
+        saveAs("tif", dir + "/" + name + "_" + i + ".tif");
 
-		// Remember to close image
-		close();
-	}
+        // Remember to close image
+        close();
+    }
 }
 
 // Remember to close stack
