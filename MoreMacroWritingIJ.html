@@ -29,11 +29,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="slides">
   <section data-menu-title="Title">
   <h2>More Macro Writing with Fiji</h2>
-  <ul>
-    <li>Lewis Mosby
-    <li>Sam Garforth
-    <li>Daniel Moore
-  </ul>
+  
+  Lewis Mosby, Sam Garforth, Daniel Moore
+	  
 </section>
    
 
@@ -41,28 +39,29 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <section data-state="intro0">
   <h2><b>Ideas for the Session</b></h2>
   <ul>
-	  <li>Can finish problems from last time
+    <li>Can finish problems from last time
     <li>Can practice some more with new problems
-    <li>Can start on assignment and ask any questions you have
-    <ul>
-      <li>We can't do your work for you, but we can hopefully point you in the right direction
-    </ul>
+    <li>Can start on assignment and ask any questions you have (hopefully we can point you in the right direction)
   </ul>
 </section>
 
 
 
 <section data-state="intro0">
-  <h2><b>(Previous session) Task 4</b></h2>
+  <h2><b>(Previous Session) Task 4</b></h2>
   
   Create a macro that:
-  
+  <br/>
+	
   <ol>
-	  <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <br/>
     <li>Counts the foci in the each image using whichever method you prefer
+    <br/>
     <li>Saves a csv file with the total number of foci in all images in the folder
   </ol>
-  
+	
+  <br/>
   Hint: consider how you would return a variable from the processFile function
   
 </section>
@@ -70,11 +69,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 
 <section data-state="intro0">
-  <h2><b>(Previous session) Task 4 Example Solution</b></h2>
+  <h2><b>(Previous Session) Task 4 Example Solution</b></h2>
   
-  <pre><code class="C">
-  
-  // Macro template to process multiple images in a folder
+  <pre><code class="C">// Macro template to process multiple images in a folder
 
   // Open input window to enter input folder, output folder, and target suffix
   #@ File (label = "Input directory", style = "directory") input
@@ -173,13 +170,18 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   <h2><b>Task 1</b></h2>
   
   Create a macro that:
+  <br/>
   
   <ol>
-	  <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <br/>
     <li>Applies a Gaussian blur filter to the Z-projection (with a variable Gaussian width)
+    <br/>
     <li>Counts the foci in the each image using whichever method you prefer
+    <br/>
     <li>Saves a csv file with the total number of foci in all images in the folder
   </ol>
+  <br/>
   
   Hint: consider how you would feed an additional variable to the processFile function
   
@@ -188,11 +190,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 
 <section data-state="intro0">
-  <h2><b>(Previous session) Task 4 Example Solution</b></h2>
+  <h2><b>(Previous session) Task 1 Example Solution</b></h2>
   
-  <pre><code class="C">
-
-  // Macro template to process multiple images in a folder
+  <pre><code class="C">// Macro template to process multiple images in a folder
 
   // Open input window to enter input folder, output folder, and target suffix
   #@ File (label = "Input directory", style = "directory") input
@@ -299,20 +299,27 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 
 <section data-state="intro0">
-  <h2><b>Task 1</b></h2>
+  <h2><b>Task 2</b></h2>
   
   Create a macro that:
+  <br/>
   
   <ol>
-	  <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <br/>
     <li>Applies Gaussian blur filters of different widths to the Z-projection
+    <br/>
     <li>Counts the foci in the each image using whichever method you prefer
+    <br/>
     <li>Finds the Gaussian width that generates the least maxima
+    <br/>
     <li>Saves a csv file with the total minimum number of foci in all images in the folder
   </ol>
+  <br/>
   
   Hint: try using a for loop that loops over different Gaussian widths
-  
+  <br/>
+	
   Does blurring the image help with particle detection?
   
 </section>
@@ -320,11 +327,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 
 <section data-state="intro0">
-  <h2><b>(Previous session) Task 4 Example Solution</b></h2>
+  <h2><b>(Previous session) Task 2 Example Solution</b></h2>
   
-  <pre><code class="C">
-
-  // Macro template to process multiple images in a folder
+  <pre><code class="C">// Macro template to process multiple images in a folder
 
   // Open input window to enter input folder, output folder, and target suffix
   #@ File (label = "Input directory", style = "directory") input
@@ -451,18 +456,25 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 
 <section data-state="intro0">
-  <h2><b>Task 1</b></h2>
+  <h2><b>Task 3</b></h2>
   
   Create a macro that:
+  <br/>
   
   <ol>
-	  <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <li>Opens every image and performs a Z-projection on the fluorescence channel
+    <br/>
     <li>Applies Gaussian blur filters of different widths to the Z-projection
+    <br/>
     <li>Counts the foci in the each image using whichever method you prefer
+    <br/>
     <li>Stores the number of maxima for each gaussian width in an array and prints them
+    <br/>
     <li>Finds the Gaussian width that generates the least maxima
+    <br/>
     <li>Saves a csv file with the total minimum number of foci in all images in the folder
   </ol>
+  <br/>
   
   Hint: look at the lecture notes on <a href="https://lmosby.github.io/IntroProgrammingIJ">programming in Fiji</a>
   
@@ -471,11 +483,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 
 <section data-state="intro0">
-  <h2><b>(Previous session) Task 4 Example Solution</b></h2>
+  <h2><b>(Previous session) Task 3 Example Solution</b></h2>
   
-  <pre><code class="C">
-
-  // Macro template to process multiple images in a folder
+  <pre><code class="C">// Macro template to process multiple images in a folder
 
   // Open input window to enter input folder, output folder, and target suffix
   #@ File (label = "Input directory", style = "directory") input
@@ -609,16 +619,15 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <section data-state="intro0">
   <h2><b>Last Few Things</b></h2>
   
-  Create a macro that:
-  
   <ul>
-	  <li>Good luck with the assignment!
+    <li>Good luck with the assignment!
+    <br/>
     <li>All details should be on Moodle
+    <br/>
     <li>If anything is unclear contact us at: sam.garforth@warwick.ac.uk,Daniel.J.Moore@warwick.ac.uk, L.S.Mosby@warwick.ac.uk
+    <br/>
     <li>Help each other (within reason)
   </ul>
-  
-  Hint: look at the lecture notes on <a href="https://lmosby.github.io/IntroProgrammingIJ">programming in Fiji</a>
   
 </section>
 
