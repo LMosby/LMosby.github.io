@@ -86,78 +86,79 @@ processFolder(input);
 // Define function to scan folders/subfolders/files to find files with correct suffix
 function processFolder(input) {
 
-// Initialise total number of detected maxima
-total = 0;
+	// Initialise total number of detected maxima
+	total = 0;
 
-// Open file to store number of detected maxima
-fileMaxima = File.open(output + File.separator + "Totals.csv");
+	// Open file to store number of detected maxima
+	fileMaxima = File.open(output + File.separator + "Totals.csv");
 
-// Find (ordered) list of files in folder
-list = getFileList(input);
-list = Array.sort(list);
+	// Find (ordered) list of files in folder
+	list = getFileList(input);
+	list = Array.sort(list);
 
-// Loop over all files in folder
-for (i = 0; i < list.length; i++) {
+	// Loop over all files in folder
+	for (i = 0; i < list.length; i++) {
 
-// If file is another folder, repeat process until individual file is found
-if(File.isDirectory(input + File.separator + list[i]))
-processFolder(input + File.separator + list[i]);
+		// If file is another folder, repeat process until individual file is found
+		if(File.isDirectory(input + File.separator + list[i]))
+			processFolder(input + File.separator + list[i]);
 
-// If file is not a folder and ends with correct suffix, process using other function
-if(endsWith(list[i], suffix))
-number = processFile(input, output, list[i]);
+		// If file is not a folder and ends with correct suffix, process using other function
+		if(endsWith(list[i], suffix)) {
+			number = processFile(input, output, list[i]);
 
-// Output number of maxima detected to file
-print(fileMaxima, list[i] + ": " + number);
+			// Output number of maxima detected to file
+			print(fileMaxima, list[i] + ": " + number);
 
-// Store a running total of the number of detected maxima
-total += number;
-}
+			// Store a running total of the number of detected maxima
+			total += number;
+		}
+	}
 
-// Output total number of detected maxima to file
-print(fileMaxima, "\nTotal number of detections: " + total);
+	// Output total number of detected maxima to file
+	print(fileMaxima, "\nTotal number of detections: " + total);
 
-// Close file
-File.close(fileMaxima);
+	// Close file
+	File.close(fileMaxima);
 }
 
 // Define function to process target files
 function processFile(input, output, file) {
-print("Processing file: " + input + File.separator + file);
+	print("Processing file: " + input + File.separator + file);
 
-// Open file
-open(input + "/" + file);
-original = getTitle();
+	// Open file
+	open(input + "/" + file);
+	original = getTitle();
 
-// Duplicate only channel 3
-run("Duplicate...", "duplicate channels=3");
-ch3 = getTitle();
+	// Duplicate only channel 3
+	run("Duplicate...", "duplicate channels=3");
+	ch3 = getTitle();
 
-// Take Z-projection of channel 3
-run("Z Project...", "projection=[Max Intensity]");
+	// Take Z-projection of channel 3
+	run("Z Project...", "projection=[Max Intensity]");
 
-// Close unneeded images
-close(ch3);
-close(original);
+	// Close unneeded images
+	close(ch3);
+	close(original);
 
-// Find maxima of projected image
-run("Find Maxima...", "prominence=80 output=List");
+	// Find maxima of projected image
+	run("Find Maxima...", "prominence=80 output=List");
 
-// Store number of detected maxima
-nMaxima = nResults;
-print("Detected " + nResults + " maxima");
+	// Store number of detected maxima
+	nMaxima = nResults;
+	print("Detected " + nResults + " maxima");
 
-// Select results window
-close();
-selectWindow("Results");
+	// Select results window
+	close();
+	selectWindow("Results");
 
-// Save result to output fileselectWindow("Results"); 
-saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
-print("Saving data to: " + output);
-run("Close"); // Close results window (not technically required)
+	// Save result to output fileselectWindow("Results"); 
+	saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
+	print("Saving data to: " + output);
+	run("Close"); // Close results window (not technically required)
 
-// Return number of detected maxima
-return nMaxima;
+	// Return number of detected maxima
+	return nMaxima;
 }</code></pre>
   
 </section>
@@ -208,86 +209,86 @@ processFolder(input);
 // Define function to scan folders/subfolders/files to find files with correct suffix
 function processFolder(input) {
 
-// Initialise total number of detected maxima
-total = 0;
+	// Initialise total number of detected maxima
+	total = 0;
 
-// Open file to store number of detected maxima
-fileMaxima = File.open(output + File.separator + "Totals.csv");
+	// Open file to store number of detected maxima
+	fileMaxima = File.open(output + File.separator + "Totals.csv");
 
-// Find (ordered) list of files in folder
-list = getFileList(input);
-list = Array.sort(list);
+	// Find (ordered) list of files in folder
+	list = getFileList(input);
+	list = Array.sort(list);
 
-// Loop over all files in folder
-for (i = 0; i < list.length; i++) {
+	// Loop over all files in folder
+	for (i = 0; i < list.length; i++) {
 
-// If file is another folder, repeat process until individual file is found
-if(File.isDirectory(input + File.separator + list[i]))
-processFolder(input + File.separator + list[i]);
+		// If file is another folder, repeat process until individual file is found
+		if(File.isDirectory(input + File.separator + list[i]))
+			processFolder(input + File.separator + list[i]);
 
-// If file is not a folder and ends with correct suffix, process using other function
-if(endsWith(list[i], suffix)) {
-print("File: " + list[i]);
+		// If file is not a folder and ends with correct suffix, process using other function
+		if(endsWith(list[i], suffix)) {
+			print("File: " + list[i]);
 
-// Find number of maxima in Z-projection of stack after Gaussian blurring
-numbers = processFile(input, output, list[i], sigma);
-print("   sigma =  " + sigma + " -> " + numbers + " maxima");
+			// Find number of maxima in Z-projection of stack after Gaussian blurring
+			numbers = processFile(input, output, list[i], sigma);
+			print("   sigma =  " + sigma + " -> " + numbers + " maxima");
 
-// Output number of maxima detected to file
-print(fileMaxima, list[i] + ": " + numbers);
+			// Output number of maxima detected to file
+			print(fileMaxima, list[i] + ": " + numbers);
 
-// Store a running total of the number of detected maxima
-total += numbers;
+			// Store a running total of the number of detected maxima
+			total += numbers;
 
-}
+		}
 
-}
+	}
 
-// Output total number of detected maxima to file
-print(fileMaxima, "\nTotal number of detections: " + total);
+	// Output total number of detected maxima to file
+	print(fileMaxima, "\nTotal number of detections: " + total);
 
-// Close file
-File.close(fileMaxima);
+	// Close file
+	File.close(fileMaxima);
 }
 
 // Define function to process target files
 function processFile(input, output, file, sigma) {
 
-// Open file
-open(input + "/" + file);
-original = getTitle();
+	// Open file
+	open(input + "/" + file);
+	original = getTitle();
 
-// Duplicate only channel 3
-run("Duplicate...", "duplicate channels=3");
-ch3 = getTitle();
+	// Duplicate only channel 3
+	run("Duplicate...", "duplicate channels=3");
+	ch3 = getTitle();
 
-// Take Z-projection of channel 3
-run("Z Project...", "projection=[Max Intensity]");
+	// Take Z-projection of channel 3
+	run("Z Project...", "projection=[Max Intensity]");
 
-// Apply Gaussian blur filter
-run("Gaussian Blur...", "sigma=" + sigma);
-// run("Convolve...", "text1=[-1 -1 -1\n-1 8 -1\n-1 -1 -1]");
+	// Apply Gaussian blur filter
+	run("Gaussian Blur...", "sigma=" + sigma);
+	// run("Convolve...", "text1=[-1 -1 -1\n-1 8 -1\n-1 -1 -1]");
 
-// Close unneeded images
-close(ch3);
-close(original);
+	// Close unneeded images
+	close(ch3);
+	close(original);
 
-// Find maxima in projected image
-run("Find Maxima...", "prominence=80 output=List");
+	// Find maxima in projected image
+	run("Find Maxima...", "prominence=80 output=List");
 
-// Store number of detected maxima
-nMaxima = nResults;
+	// Store number of detected maxima
+	nMaxima = nResults;
 
-// Select results window
-close();
-selectWindow("Results");
+	// Select results window
+	close();
+	selectWindow("Results");
 
-// Save result to output fileselectWindow("Results"); 
-saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
-run("Close"); // Close results window (not technically required)
+	// Save result to output fileselectWindow("Results"); 
+	saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
+	run("Close"); // Close results window (not technically required)
 
-// Return number of detected maxima
-return nMaxima;
+	// Return number of detected maxima
+	return nMaxima;
 }</code></pre>
   
 </section>
@@ -343,106 +344,105 @@ processFolder(input);
 // Define function to scan folders/subfolders/files to find files with correct suffix
 function processFolder(input) {
 
-// Initialise total number of detected maxima
-total = 0;
+	// Initialise total number of detected maxima
+	total = 0;
 
-// Open file to store number of detected maxima
-fileMaxima = File.open(output + File.separator + "Totals.csv");
+	// Open file to store number of detected maxima
+	fileMaxima = File.open(output + File.separator + "Totals.csv");
 
-// Find (ordered) list of files in folder
-list = getFileList(input);
-list = Array.sort(list);
+	// Find (ordered) list of files in folder
+	list = getFileList(input);
+	list = Array.sort(list);
 
-// Loop over all files in folder
-for (i = 0; i < list.length; i++) {
+	// Loop over all files in folder
+	for (i = 0; i < list.length; i++) {
 
-// If file is another folder, repeat process until individual file is found
-if(File.isDirectory(input + File.separator + list[i]))
-processFolder(input + File.separator + list[i]);
+		// If file is another folder, repeat process until individual file is found
+		if(File.isDirectory(input + File.separator + list[i]))
+			processFolder(input + File.separator + list[i]);
 
-// If file is not a folder and ends with correct suffix, process using other function
-if(endsWith(list[i], suffix)) {
-print("File: " + list[i]);
+		// If file is not a folder and ends with correct suffix, process using other function
+		if(endsWith(list[i], suffix)) {
+			print("File: " + list[i]);
 
-// Initialise variables to store value of sigma that finds the least objects
-bestVal = 10000;
-bestInd = sigmaMax + 1;
+			// Initialise variables to store value of sigma that finds the least objects
+			bestVal = 10000;
+			bestInd = sigmaMax + 1;
 
-// Loop over different values of sigma
-for (j = 0; j < sigmaMax; j++) {
+			// Loop over different values of sigma
+			for (j = 0; j < sigmaMax; j++) {
 
-  // Find number of maxima in Z-projection of stack after Gaussian blurring
-  numbers = processFile(input, output, list[i], j);
-  print("   sigma =  " + j + " -> " + numbers + " maxima");
+				// Find number of maxima in Z-projection of stack after Gaussian blurring
+				numbers = processFile(input, output, list[i], j);
+				print("   sigma =  " + j + " -> " + numbers + " maxima");
 
-  // Find best value of sigma
-  if (numbers < bestVal) {
+				// Find best value of sigma
+				if (numbers < bestVal) {
 
-    bestVal = numbers;
-    bestInd = j;
+					bestVal = numbers;
+					bestInd = j;
 
-  }
+				}
+			}
 
-}
+			// Print results for best value of sigma
+			print("   best value = " + bestInd + " -> " + bestVal + " maxima");
 
-// Print results for best value of sigma
-print("   best value = " + bestInd + " -> " + bestVal + " maxima");
+			// Output number of maxima detected to file
+			print(fileMaxima, list[i] + ": " + bestVal);
 
-// Output number of maxima detected to file
-print(fileMaxima, list[i] + ": " + bestVal);
+			// Store a running total of the number of detected maxima
+			total += bestVal;
 
-// Store a running total of the number of detected maxima
-total += bestVal;
+		}
 
-}
+	}
 
-}
+	// Output total number of detected maxima to file
+	print(fileMaxima, "\nTotal number of detections: " + total);
 
-// Output total number of detected maxima to file
-print(fileMaxima, "\nTotal number of detections: " + total);
-
-// Close file
-File.close(fileMaxima);
+	// Close file
+	File.close(fileMaxima);
 }
 
 // Define function to process target files
 function processFile(input, output, file, sigma) {
 
-// Open file
-open(input + "/" + file);
-original = getTitle();
+	// Open file
+	open(input + "/" + file);
+	original = getTitle();
 
-// Duplicate only channel 3
-run("Duplicate...", "duplicate channels=3");
-ch3 = getTitle();
+	// Duplicate only channel 3
+	run("Duplicate...", "duplicate channels=3");
+	ch3 = getTitle();
 
-// Take Z-projection of channel 3
-run("Z Project...", "projection=[Max Intensity]");
+	// Take Z-projection of channel 3
+	run("Z Project...", "projection=[Max Intensity]");
 
-// Apply Gaussian blur filter
-run("Gaussian Blur...", "sigma=" + sigma);
-// run("Convolve...", "text1=[-1 -1 -1\n-1 8 -1\n-1 -1 -1]");
+	// Apply Gaussian blur filter
+	run("Gaussian Blur...", "sigma=" + sigma);
+	// run("Convolve...", "text1=[-1 -1 -1\n-1 8 -1\n-1 -1 -1]");
 
-// Close unneeded images
-close(ch3);
-close(original);
+	// Close unneeded images
+	close(ch3);
+	close(original);
 
-// Find maxima in projected image
-run("Find Maxima...", "prominence=80 output=List");
+	// Find maxima in projected image
+	run("Find Maxima...", "prominence=80 output=List");
 
-// Store number of detected maxima
-nMaxima = nResults;
+	// Store number of detected maxima
+	nMaxima = nResults;
 
-// Select results window
-close();
-selectWindow("Results");
+	// Select results window
+	close();
+	selectWindow("Results");
 
-// Save result to output fileselectWindow("Results"); 
-saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
-run("Close"); // Close results window (not technically required)
+	// Save result to output fileselectWindow("Results"); 
+	saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
+	run("Close"); // Close results window (not technically required)
 
-// Return number of detected maxima
-return nMaxima;
+	// Return number of detected maxima
+	return nMaxima;
 }</code></pre>
   
 </section>
@@ -497,111 +497,110 @@ processFolder(input);
 // Define function to scan folders/subfolders/files to find files with correct suffix
 function processFolder(input) {
 
-// Initialise total number of detected maxima
-total = 0;
+	// Initialise total number of detected maxima
+	total = 0;
 
-// Open file to store number of detected maxima
-fileMaxima = File.open(output + File.separator + "Totals.csv");
+	// Open file to store number of detected maxima
+	fileMaxima = File.open(output + File.separator + "Totals.csv");
 
-// Find (ordered) list of files in folder
-list = getFileList(input);
-list = Array.sort(list);
+	// Find (ordered) list of files in folder
+	list = getFileList(input);
+	list = Array.sort(list);
 
-// Loop over all files in folder
-for (i = 0; i < list.length; i++) {
+	// Loop over all files in folder
+	for (i = 0; i < list.length; i++) {
 
-// If file is another folder, repeat process until individual file is found
-if(File.isDirectory(input + File.separator + list[i]))
-processFolder(input + File.separator + list[i]);
+		// If file is another folder, repeat process until individual file is found
+		if(File.isDirectory(input + File.separator + list[i]))
+			processFolder(input + File.separator + list[i]);
 
-// If file is not a folder and ends with correct suffix, process using other function
-if(endsWith(list[i], suffix)) {
-print("File: " + list[i]);
+		// If file is not a folder and ends with correct suffix, process using other function
+		if(endsWith(list[i], suffix)) {
+			print("File: " + list[i]);
 
-// Initialise array to store numbre of maxima for each value of sigma
-numbers = newArray(sigmaMax);
+			// Initialise array to store numbre of maxima for each value of sigma
+			numbers = newArray(sigmaMax);
 
-// Initialise variables to store value of sigma that finds the least objects
-bestVal = 10000;
-bestInd = sigmaMax + 1;
+			// Initialise variables to store value of sigma that finds the least objects
+			bestVal = 10000;
+			bestInd = sigmaMax + 1;
 
-// Loop over different values of sigma
-for (j = 0; j < sigmaMax; j++) {
+			// Loop over different values of sigma
+			for (j = 0; j < sigmaMax; j++) {
 
-  // Find number of maxima in Z-projection of stack after Gaussian blurring
-  numbers[j] = processFile(input, output, list[i], j);
+				// Find number of maxima in Z-projection of stack after Gaussian blurring
+				numbers[j] = processFile(input, output, list[i], j);
 
-  // Find best value of sigma
-  if (numbers[j] < bestVal) {
+				// Find best value of sigma
+				if (numbers[j] < bestVal) {
 
-    bestVal = numbers[j];
-    bestInd = j;
+					bestVal = numbers[j];
+					bestInd = j;
 
-  }
+				}
+			}
 
-}
+			// Print array containing numbre of maxima for each value of sigma
+			Array.print(numbers);
 
-// Print array containing numbre of maxima for each value of sigma
-Array.print(numbers);
+			// Print results for best value of sigma
+			print("   best value = " + bestInd + " -> " + bestVal + " maxima");
 
-// Print results for best value of sigma
-print("   best value = " + bestInd + " -> " + bestVal + " maxima");
+			// Output number of maxima detected to file
+			print(fileMaxima, list[i] + ": " + bestVal);
 
-// Output number of maxima detected to file
-print(fileMaxima, list[i] + ": " + bestVal);
+			// Store a running total of the number of detected maxima
+			total += bestVal;
 
-// Store a running total of the number of detected maxima
-total += bestVal;
+		}
 
-}
+	}
 
-}
+	// Output total number of detected maxima to file
+	print(fileMaxima, "\nTotal number of detections: " + total);
 
-// Output total number of detected maxima to file
-print(fileMaxima, "\nTotal number of detections: " + total);
-
-// Close file
-File.close(fileMaxima);
+	// Close file
+	File.close(fileMaxima);
 }
 
 // Define function to process target files
 function processFile(input, output, file, sigma) {
 
-// Open file
-open(input + "/" + file);
-original = getTitle();
+	// Open file
+	open(input + "/" + file);
+	original = getTitle();
 
-// Duplicate only channel 3
-run("Duplicate...", "duplicate channels=3");
-ch3 = getTitle();
+	// Duplicate only channel 3
+	run("Duplicate...", "duplicate channels=3");
+	ch3 = getTitle();
 
-// Take Z-projection of channel 3
-run("Z Project...", "projection=[Max Intensity]");
+	// Take Z-projection of channel 3
+	run("Z Project...", "projection=[Max Intensity]");
 
-// Apply Gaussian blur filter
-run("Gaussian Blur...", "sigma=" + sigma);
-// run("Convolve...", "text1=[-1 -1 -1\n-1 8 -1\n-1 -1 -1]");
+	// Apply Gaussian blur filter
+	run("Gaussian Blur...", "sigma=" + sigma);
+	// run("Convolve...", "text1=[-1 -1 -1\n-1 8 -1\n-1 -1 -1]");
 
-// Close unneeded images
-close(ch3);
-close(original);
+	// Close unneeded images
+	close(ch3);
+	close(original);
 
-// Find maxima in projected image
-run("Find Maxima...", "prominence=80 output=List");
+	// Find maxima in projected image
+	run("Find Maxima...", "prominence=80 output=List");
 
-// Store number of detected maxima
-nMaxima = nResults;
+	// Store number of detected maxima
+	nMaxima = nResults;
 
-// Select results window
-close();
-selectWindow("Results");
+	// Select results window
+	close();
+	selectWindow("Results");
 
-// Save result to output fileselectWindow("Results"); 
-saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
-run("Close"); // Close results window (not technically required)
+	// Save result to output fileselectWindow("Results"); 
+	saveAs("results", output + "/" + File.nameWithoutExtension + "_results.csv");
+	run("Close"); // Close results window (not technically required)
 
-// Return number of detected maxima
-return nMaxima;
+	// Return number of detected maxima
+	return nMaxima;
 }</code></pre>
   
 </section>
